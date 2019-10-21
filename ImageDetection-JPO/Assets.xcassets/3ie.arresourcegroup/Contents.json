@@ -1,0 +1,89 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "resources" : [
+    {
+      "filename" : "3ie-!.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-1.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-2.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-3.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-4.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-5.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-6.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-7.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-8.arreferenceimage"
+    },
+    {
+      "filename" : "3ie-9.arreferenceimage"
+    },
+    {
+      "filename" : "android1.arreferenceimage"
+    },
+    {
+      "filename" : "android2.arreferenceimage"
+    },
+    {
+      "filename" : "android3.arreferenceimage"
+    },
+    {
+      "filename" : "design1.arreferenceimage"
+    },
+    {
+      "filename" : "design2.arreferenceimage"
+    },
+    {
+      "filename" : "design3.arreferenceimage"
+    },
+    {
+      "filename" : "design4.arreferenceimage"
+    },
+    {
+      "filename" : "figurine1.arreferenceimage"
+    },
+    {
+      "filename" : "figurine2.arreferenceimage"
+    },
+    {
+      "filename" : "figurine3.arreferenceimage"
+    },
+    {
+      "filename" : "figurine4.arreferenceimage"
+    },
+    {
+      "filename" : "figurine5.arreferenceimage"
+    },
+    {
+      "filename" : "figurine6.arreferenceimage"
+    },
+    {
+      "filename" : "web1.arreferenceimage"
+    },
+    {
+      "filename" : "web2.arreferenceimage"
+    },
+    {
+      "filename" : "web3.arreferenceimage"
+    },
+    {
+      "filename" : "web4.arreferenceimage"
+    }
+  ]
+}

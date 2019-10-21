@@ -40,6 +40,7 @@ class NodeHandler {
         sceneView.scene.rootNode.addChildNode(paperPlaneNode)
     }
     
+    //Here to give animations to objects
     func animateObject(object: SCNNode, objectName: String) {
         if objectName == "XWing" {
             let goStraight = SCNAction.move(by: SCNVector3(0, 0, -10), duration: 1)

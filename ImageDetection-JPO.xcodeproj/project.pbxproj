@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00BA13FA235D93D60026D146 /* TLAnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */; };
 		5E38530920EBA43F00A1B0EF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E38530820EBA43F00A1B0EF /* Constants.swift */; };
 		5E39FC5621060BB700F6E610 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5E39FC5521060BB600F6E610 /* Assets.xcassets */; };
 		5E846E5120EE1CC7005770A2 /* ScenaryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E846E5020EE1CC7005770A2 /* ScenaryHandler.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLAnalogJoystick.swift; sourceTree = "<group>"; };
 		5E38530820EBA43F00A1B0EF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5E39FC5521060BB600F6E610 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5E846E5020EE1CC7005770A2 /* ScenaryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScenaryHandler.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				5EECC51920E507CF00F215C3 /* ImageDictionnary.swift */,
 				5E38530820EBA43F00A1B0EF /* Constants.swift */,
 				5EEEAE8320ED0A52008EC037 /* objects.scnassets */,
+				00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */,
 			);
 			path = "ImageDetection-JPO";
 			sourceTree = "<group>";
@@ -169,6 +172,7 @@
 				5E846E5120EE1CC7005770A2 /* ScenaryHandler.swift in Sources */,
 				5E9755F620E4EFEB0086AC4C /* NodeHandler.swift in Sources */,
 				5E9755F420E120FD0086AC4C /* ViewController+ARSessionDelegate.swift in Sources */,
+				00BA13FA235D93D60026D146 /* TLAnalogJoystick.swift in Sources */,
 				5EECC51A20E507CF00F215C3 /* ImageDictionnary.swift in Sources */,
 				5E9755E420E11CE50086AC4C /* ViewController.swift in Sources */,
 				5E9755E020E11CE50086AC4C /* AppDelegate.swift in Sources */,
@@ -317,7 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RCCYY472NP;
+				DEVELOPMENT_TEAM = ZA25QH9A8G;
 				INFOPLIST_FILE = "ImageDetection-JPO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -336,7 +340,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = RCCYY472NP;
+				DEVELOPMENT_TEAM = ZA25QH9A8G;
 				INFOPLIST_FILE = "ImageDetection-JPO/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (

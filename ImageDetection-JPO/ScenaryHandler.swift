@@ -17,38 +17,24 @@ class ScenaryHandler {
     init () {
         
     }
-
-    func runScenary(objectName: String, sceneView: ARSCNView, ref: ARReferenceImage, node: SCNNode) {
-        if objectName.lowercased().range(of:"board") != nil {
-            var vect = SCNVector3(0, 2, -5.5)
-            nodeHandler.createSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
-            vect = SCNVector3(4, 2, -5.5)
-            nodeHandler.createSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
-            vect = SCNVector3(-3, 2, -5.5)
-            nodeHandler.createSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
-        } else if objectName.lowercased().range(of:"mac") != nil {
-            let vect = SCNVector3(1, 0, -5.5)
-            nodeHandler.createSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
-        } else {
-            addSKScene(dicoDescr: objectName, ref: ref, node: node)
-        }
-    }
     
     func runScenary3IE(objectName: String, sceneView: ARSCNView, ref: ARReferenceImage, node: SCNNode) {
-        
-    }
-    
-    func runScenaryCoursPasteur(objectName: String, sceneView: ARSCNView, ref: ARReferenceImage, node: SCNNode) {
         if objectName.lowercased().range(of:"under") != nil {
             let vect = SCNVector3(0, 0, 4.5)
             nodeHandler.createSCObjectWithVector(name: "objects.scnassets/Creeper.scn", rootname: "Creeper", sceneView: sceneView, vect: vect)
-        } else if objectName.lowercased().range(of:"falcon") != nil {
-            let vect = SCNVector3(0, 4, 3.5)
+        } else if objectName.lowercased().range(of:"le lab 3ie") != nil {
+            let vect = SCNVector3(1, 0, -5.5)
             nodeHandler.createSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
+            addSKScene(dicoDescr: objectName, ref: ref, node: node)
+        } else if objectName.lowercased().range(of:"pôle design") != nil {
+            let vect = SCNVector3(1, 0, -5.5)
+            nodeHandler.createSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
+            addSKScene(dicoDescr: objectName, ref: ref, node: node)
         } else {
             addSKScene(dicoDescr: objectName, ref: ref, node: node)
         }
     }
+    
     
     func addSKScene(dicoDescr: String, ref: ARReferenceImage, node: SCNNode) {
         //Creation of the SKScene, the SKLabelNode and the SCNPlane
