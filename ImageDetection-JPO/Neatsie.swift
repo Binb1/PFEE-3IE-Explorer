@@ -17,10 +17,10 @@ final class Neatsie: SCNNode {
         super.init()
         
         // create player
-        let playerGeometry = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
-        playerGeometry.firstMaterial?.diffuse.contents = UIColor.brown
+        let playerGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+        playerGeometry.firstMaterial?.diffuse.contents = UIColor.blue
 
-        position = SCNVector3(x: 0, y: 0.5, z: 0)
+        position = SCNVector3(x: 5, y: 0.5, z: 0)
 
         // give the looks
         geometry = playerGeometry
@@ -44,7 +44,6 @@ final class Neatsie: SCNNode {
     var directionAngle: SCNFloat = 0.0 {
         didSet {
             if directionAngle != oldValue {
-                // action that rotates the node to an absolute angle in radian.
                 let action = SCNAction.rotateTo(
                     x: 0.0,
                     y: CGFloat(directionAngle),

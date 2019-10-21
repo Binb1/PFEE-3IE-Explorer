@@ -41,7 +41,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         
         neatsie = Neatsie()
-        neatsie!.scene = SCNScene(named: "objects.scnassets/XWing.scn")
+        //neatsie!.scene = SCNScene(named: "objects.scnassets/XWing.scn")
         //gameView.scene.rootNode.addChildNode(neatsie!.scene!.rootNode.childNode(withName: "XWing", recursively: true)!)
         gameView.scene.rootNode.addChildNode(neatsie!)
     }
@@ -75,9 +75,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
-        let directionInV3 = float3(x: direction.x, y: 0, z: direction.y)
-        neatsie!.walkInDirection(directionInV3)
-        
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         let ref = imageAnchor.referenceImage
         updateQueue.async {
@@ -90,6 +87,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 }
             }
         }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        let directionInV3 = float3(x: direction.x, y: 0, z: direction.y)
+        neatsie!.position = SCNVector3(directionInV3)
+        print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
     }
 }
 
@@ -115,12 +118,12 @@ extension ViewController {
                 let lengthOfX = Float(touchLocation.x - middleOfCircleX)
                 let lengthOfY = Float(touchLocation.y - middleOfCircleY)
 
-                direction = float2(x: lengthOfX, y: lengthOfY)
+                direction = direction + float2(x: lengthOfX + 2, y: lengthOfY + 2)
                 direction = normalize(direction)
 
                 let degree = atan2(direction.x, direction.y)
                 neatsie!.directionAngle = degree
-                print("moving x: \(direction.x) y: \(direction.y)")
+                //print("moving x: \(direction.x) y: \(direction.y)")
             }
         }
     }
