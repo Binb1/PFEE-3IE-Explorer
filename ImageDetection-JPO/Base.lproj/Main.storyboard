@@ -19,10 +19,19 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Orj-FM-JTZ" customClass="GameView" customModule="ImageDetection_JPO" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                             </arscnView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ooe-cx-e2l">
+                                <rect key="frame" x="608" y="325" width="39" height="30"/>
+                                <state key="normal" title="Reset"/>
+                                <connections>
+                                    <action selector="resetCube:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ji1-bb-KSQ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="Orj-FM-JTZ" firstAttribute="leading" secondItem="lHK-w8-W0W" secondAttribute="leading" id="3df-qJ-GmB"/>
+                            <constraint firstItem="ooe-cx-e2l" firstAttribute="trailing" secondItem="lHK-w8-W0W" secondAttribute="trailing" constant="-20" id="4MU-Ja-cqZ"/>
+                            <constraint firstItem="ooe-cx-e2l" firstAttribute="bottom" secondItem="lHK-w8-W0W" secondAttribute="bottom" constant="-20" id="Qi6-DE-Iaw"/>
                             <constraint firstItem="Orj-FM-JTZ" firstAttribute="trailing" secondItem="lHK-w8-W0W" secondAttribute="trailing" id="XYN-ca-63n"/>
                             <constraint firstItem="Orj-FM-JTZ" firstAttribute="top" secondItem="lHK-w8-W0W" secondAttribute="top" id="ty7-OM-N67"/>
                             <constraint firstItem="Orj-FM-JTZ" firstAttribute="bottom" secondItem="lHK-w8-W0W" secondAttribute="bottom" id="ymd-b5-pbn"/>

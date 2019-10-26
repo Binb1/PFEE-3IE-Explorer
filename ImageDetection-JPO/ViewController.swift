@@ -29,6 +29,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     var touch: UITouch?
     var direction = float2(0, 0)
+    
+    let plane = Plane(width: 1, height: 1, content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +43,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         
         neatsie = Neatsie()
-        //neatsie!.scene = SCNScene(named: "objects.scnassets/XWing.scn")
-        //gameView.scene.rootNode.addChildNode(neatsie!.scene!.rootNode.childNode(withName: "XWing", recursively: true)!)
-        gameView.scene.rootNode.addChildNode(neatsie!)
+        addPlane(object: neatsie)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,6 +56,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillDisappear(animated)
         
         gameView.session.pause()
+    }
+    
+    @IBAction func resetCube(_ sender: Any) {
+        neatsie?.removeFromParentNode()
+        neatsie = Neatsie()
+        
+        if let neatsie = neatsie {
+            plane.addChildNode(neatsie)
+        }
     }
     
     func configureTracking(ressourceFolder: String) {
@@ -73,8 +82,17 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Release any cached data, images, etc that aren't in use.
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+    func addPlane(object: SCNNode? = nil){
+        plane.position = SCNVector3(0, 0, -0.5)
         
+        if let object = object {
+            plane.addChildNode(object)
+        }
+        
+        self.gameView.scene.rootNode.addChildNode(plane)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let imageAnchor = anchor as? ARImageAnchor else { return }
         let ref = imageAnchor.referenceImage
         updateQueue.async {
@@ -90,8 +108,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        let directionInV3 = float3(x: direction.x, y: 0, z: direction.y)
-        neatsie!.position = SCNVector3(directionInV3)
+        let directionInV3 = float3(x: direction.x, y: -direction.y, z: 0)
+        neatsie?.walkInDirection(directionInV3)
+        direction = float2(0, 0)
         print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
     }
 }
@@ -118,7 +137,7 @@ extension ViewController {
                 let lengthOfX = Float(touchLocation.x - middleOfCircleX)
                 let lengthOfY = Float(touchLocation.y - middleOfCircleY)
 
-                direction = direction + float2(x: lengthOfX + 2, y: lengthOfY + 2)
+                direction = float2(x: lengthOfX, y: lengthOfY)
                 direction = normalize(direction)
 
                 let degree = atan2(direction.x, direction.y)

@@ -13,16 +13,14 @@ final class Neatsie: SCNNode {
 
     var scene : SCNScene?
     
-    override init() {
+    init(width: CGFloat = 0.2, height: CGFloat = 0.2) {
         super.init()
         
         // create player
-        let playerGeometry = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-        playerGeometry.firstMaterial?.diffuse.contents = UIColor.blue
+        let playerGeometry = SCNBox(width: width, height: height, length: 0.2, chamferRadius: 0)
+        playerGeometry.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.9)
 
-        position = SCNVector3(x: 5, y: 0.5, z: 0)
-
-        // give the looks
+        position = SCNVector3(x: 0, y: 0.5, z: 0)
         geometry = playerGeometry
 
         // define shape, here a box around the player
@@ -46,8 +44,8 @@ final class Neatsie: SCNNode {
             if directionAngle != oldValue {
                 let action = SCNAction.rotateTo(
                     x: 0.0,
-                    y: CGFloat(directionAngle),
-                    z: 0.0,
+                    y: 0.0,
+                    z: CGFloat(directionAngle),
                     duration: 0.1, usesShortestUnitArc: true
                 )
                 runAction(action)
@@ -55,7 +53,7 @@ final class Neatsie: SCNNode {
         }
     }
 
-    let speed: Float = 0.3
+    let speed: Float = 0.02
 
     func walkInDirection(_ direction: float3) {
         let currentPosition = float3(position)
