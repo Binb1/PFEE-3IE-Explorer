@@ -30,7 +30,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var touch: UITouch?
     var direction = float2(0, 0)
     
-    let plane = Plane(width: 1, height: 1, content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
+    var plane: SCNNode!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +41,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         gameView.scene = SCNScene()
         gameView.session.delegate = self
         
-        
+        plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
+
         neatsie = Neatsie()
         addPlane(object: neatsie)
     }
@@ -61,6 +62,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBAction func resetCube(_ sender: Any) {
         neatsie?.removeFromParentNode()
         neatsie = Neatsie()
+        
+        plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
         
         if let neatsie = neatsie {
             plane.addChildNode(neatsie)
@@ -127,7 +130,7 @@ extension ViewController {
 
         if let touch = touch {
 
-            // check whether our touch is within our dpad
+            // Check whether our touch is within the joystick
             let touchLocation = touch.location(in: self.view)
             if gameView.virtualDPad().contains(touchLocation) {
 

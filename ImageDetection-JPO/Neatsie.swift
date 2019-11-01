@@ -12,25 +12,22 @@ import SceneKit
 final class Neatsie: SCNNode {
 
     var scene : SCNScene?
+    let speed: Float = 0.02
     
     init(width: CGFloat = 0.2, height: CGFloat = 0.2) {
         super.init()
         
-        // create player
         let playerGeometry = SCNBox(width: width, height: height, length: 0.2, chamferRadius: 0)
         playerGeometry.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.9)
 
         position = SCNVector3(x: 0, y: 0.5, z: 0)
         geometry = playerGeometry
 
-        // define shape, here a box around the player
         let shape = SCNPhysicsShape(
             geometry: playerGeometry,
-            // default is box, give it a physics shape near to its looking shape
             options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox]
         )
 
-        // assign physics body based on geometry body (here: player)
         physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         physicsBody?.angularVelocityFactor = SCNVector3Zero
     }
@@ -52,8 +49,6 @@ final class Neatsie: SCNNode {
             }
         }
     }
-
-    let speed: Float = 0.02
 
     func walkInDirection(_ direction: float3) {
         let currentPosition = float3(position)

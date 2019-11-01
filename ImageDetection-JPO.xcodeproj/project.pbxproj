@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00BA13FA235D93D60026D146 /* TLAnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */; };
 		00BA13FC235DA04D0026D146 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA13FB235DA04D0026D146 /* GameView.swift */; };
 		00BA13FE235DA60B0026D146 /* Neatsie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA13FD235DA60A0026D146 /* Neatsie.swift */; };
 		00BA14022361EDF30026D146 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BA14012361EDF30026D146 /* Plane.swift */; };
@@ -26,7 +25,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLAnalogJoystick.swift; sourceTree = "<group>"; };
 		00BA13FB235DA04D0026D146 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		00BA13FD235DA60A0026D146 /* Neatsie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neatsie.swift; sourceTree = "<group>"; };
 		00BA14012361EDF30026D146 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 				5EECC51920E507CF00F215C3 /* ImageDictionnary.swift */,
 				5E38530820EBA43F00A1B0EF /* Constants.swift */,
 				5EEEAE8320ED0A52008EC037 /* objects.scnassets */,
-				00BA13F9235D93D60026D146 /* TLAnalogJoystick.swift */,
 				00BA13FB235DA04D0026D146 /* GameView.swift */,
 				00BA13FD235DA60A0026D146 /* Neatsie.swift */,
 				00BA14012361EDF30026D146 /* Plane.swift */,
@@ -181,7 +178,6 @@
 				5E846E5120EE1CC7005770A2 /* ScenaryHandler.swift in Sources */,
 				5E9755F620E4EFEB0086AC4C /* NodeHandler.swift in Sources */,
 				5E9755F420E120FD0086AC4C /* ViewController+ARSessionDelegate.swift in Sources */,
-				00BA13FA235D93D60026D146 /* TLAnalogJoystick.swift in Sources */,
 				00BA13FC235DA04D0026D146 /* GameView.swift in Sources */,
 				00BA13FE235DA60B0026D146 /* Neatsie.swift in Sources */,
 				5EECC51A20E507CF00F215C3 /* ImageDictionnary.swift in Sources */,
