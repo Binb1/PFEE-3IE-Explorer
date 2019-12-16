@@ -30,6 +30,8 @@ final class Neatsie: SCNNode {
 
         physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         physicsBody?.angularVelocityFactor = SCNVector3Zero
+        
+        name = "Neatsie"
     }
 
     required init?(coder aDecoder: NSCoder) {

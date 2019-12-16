@@ -41,7 +41,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         gameView.scene = SCNScene()
         gameView.session.delegate = self
         
-        plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
+        plane = Plane(content: UIColor.cyan.withAlphaComponent(0), doubleSided: true, horizontal: true)
 
         neatsie = Neatsie()
         addPlane(object: neatsie)
@@ -49,7 +49,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureTracking(ressourceFolder: Constants.ARReference.folderName)
     }
     
@@ -60,14 +60,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func resetCube(_ sender: Any) {
+        self.gameView.scene = SCNScene()
         neatsie?.removeFromParentNode()
+        
         neatsie = Neatsie()
         
         plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
-        
-        if let neatsie = neatsie {
-            plane.addChildNode(neatsie)
-        }
+        addPlane(object: neatsie)
     }
     
     func configureTracking(ressourceFolder: String) {
@@ -115,6 +114,36 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         neatsie?.walkInDirection(directionInV3)
         direction = float2(0, 0)
         print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
+        
+        if let neatsie = neatsie {
+            
+            if (neatsie.position.x >= 0.0 && neatsie.position.x <= 1.0 &&
+                neatsie.position.y >= 0.0 && neatsie.position.y <= 1.0 ) { // iOS Section
+                    print("in iOS")
+                    if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        neatsie.opacity = 1.0
+                        iosSection.opacity = 1.0
+                    }
+            } else if (neatsie.position.x >= 1.0 && neatsie.position.x <= 2.0 &&
+                       neatsie.position.y >= 1.0 && neatsie.position.y <= 2.0) { //Android Section
+                    print("in Android")
+                    if let androidSection = plane.childNode(withName: "androidSection", recursively: true) {
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        androidSection.opacity = 1.0
+                        neatsie.opacity = 1.0
+                    }
+            } else {
+                for i in 0...plane.childNodes.count - 1 {
+                    plane.childNodes[i].opacity = 0.0
+                }
+                neatsie.opacity = 1.0
+            }
+        }
     }
 }
 
