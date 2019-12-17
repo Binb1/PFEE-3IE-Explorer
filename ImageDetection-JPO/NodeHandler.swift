@@ -78,12 +78,23 @@ class NodeHandler {
                 return
         }
         
-        //First droite gauche
-        //Second -> z vers le haut
-        //Third -> Profondeur
         paperPlaneNode.position = vect
         animateObject(object: paperPlaneNode, objectName: rootname)
         sceneView.scene.rootNode.addChildNode(paperPlaneNode)
+    }
+    
+    func createSCObjectWithVectorOnSurface(name: String, rootname: String, vect: SCNVector3, planeSurface: SCNNode) {
+        debugPrint("create xwing")
+        guard let paperPlaneScene = SCNScene(named: name),
+            let paperPlaneNode = paperPlaneScene.rootNode.childNode(withName: rootname, recursively: true)
+            else {
+                debugPrint("oh nan")
+                return
+        }
+        
+        paperPlaneNode.position = vect
+        animateObject(object: paperPlaneNode, objectName: rootname)
+        planeSurface.addChildNode(paperPlaneNode)
     }
     
     func createSceneWithLabel(text: String) -> SKScene {

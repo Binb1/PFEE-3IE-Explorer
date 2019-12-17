@@ -18,6 +18,11 @@ class ScenaryHandler {
         
     }
     
+    func addObjectsToiOSSection(planeSurface: SCNNode) {
+        let vect = SCNVector3(1, 0, 0)
+        nodeHandler.createSCObjectWithVectorOnSurface(name: "objects.scnassets/XWing.scn", rootname: "XWing", vect: vect, planeSurface: planeSurface)
+    }
+    
     func runScenary3IE(objectName: String, sceneView: ARSCNView, ref: ARReferenceImage, node: SCNNode) {
         if objectName.lowercased().range(of:"under") != nil {
             let vect = SCNVector3(0, 0, 4.5)

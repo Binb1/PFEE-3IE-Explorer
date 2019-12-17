@@ -45,6 +45,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
         neatsie = Neatsie()
         addPlane(object: neatsie)
+        
+        if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
+            scenaryHandler.addObjectsToiOSSection(planeSurface: iosSection)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -115,31 +119,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         direction = float2(0, 0)
         print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
         
+        
+        //Object plane presence detection
         if let neatsie = neatsie {
-            
             if (neatsie.position.x >= 0.0 && neatsie.position.x <= 1.0 &&
                 neatsie.position.y >= 0.0 && neatsie.position.y <= 1.0 ) { // iOS Section
                     print("in iOS")
                     if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
                         for i in 0...plane.childNodes.count - 1 {
-                            plane.childNodes[i].opacity = 0.0
+                            //plane.childNodes[i].opacity = 0.0
                         }
                         neatsie.opacity = 1.0
                         iosSection.opacity = 1.0
+                        
                     }
             } else if (neatsie.position.x >= 1.0 && neatsie.position.x <= 2.0 &&
                        neatsie.position.y >= 1.0 && neatsie.position.y <= 2.0) { //Android Section
                     print("in Android")
                     if let androidSection = plane.childNode(withName: "androidSection", recursively: true) {
                         for i in 0...plane.childNodes.count - 1 {
-                            plane.childNodes[i].opacity = 0.0
+                            //plane.childNodes[i].opacity = 0.0
                         }
                         androidSection.opacity = 1.0
                         neatsie.opacity = 1.0
                     }
             } else {
                 for i in 0...plane.childNodes.count - 1 {
-                    plane.childNodes[i].opacity = 0.0
+                    //plane.childNodes[i].opacity = 0.0
                 }
                 neatsie.opacity = 1.0
             }
