@@ -28,8 +28,10 @@ class ScenaryHandler {
     
     func runiOSScenary(sceneView: ARSCNView, iosCalled: Bool) {
         if (!iosCalled) {
-            let vect = SCNVector3(1, 0, 0)
+            let vect = SCNVector3(-5, 1, 2.5)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
+            let textNode = addLabelToSection(section: "Pole iOS", node: sceneView.scene.rootNode)
+            iOSNodes.append(textNode)
             if let node = node {
                 iOSNodes.append(node)
             }
@@ -46,15 +48,13 @@ class ScenaryHandler {
         }
     }
     
-    func cancelScenaris(iosCalled: Bool, androidCalled: Bool, sceneView: ARSCNView) {
+    func cancelScenaris(iosCalled: Bool, androidCalled: Bool, webCalled: Bool, arCalled: Bool, sceneView: ARSCNView) {
         if (iosCalled == false) {
-            print("delete ios")
             for node in iOSNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
         }
         if (androidCalled == false) {
-            print("delete android")
             for node in androidNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
@@ -76,6 +76,26 @@ class ScenaryHandler {
         } else {
             addSKScene(dicoDescr: objectName, ref: ref, node: node)
         }
+    }
+    
+    func addLabelToSection(section: String, node: SCNNode) -> SCNNode {
+        let skScene = self.nodeHandler.createSceneWithLabel(text: section)
+        //Create a plane on top of the detected image
+        let plane = SCNPlane(width: 2,
+                             height: 2)
+        let material = SCNMaterial()
+        material.lightingModel = SCNMaterial.LightingModel.constant
+        material.isDoubleSided = false
+        material.diffuse.contents = skScene
+        plane.materials = [material]
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.opacity = 1
+        planeNode.eulerAngles.x = 0
+        planeNode.name = section
+        //planeNode.position = SCNVector3(-2, 0, 2)
+        
+        node.addChildNode(planeNode)
+        return planeNode
     }
     
     func addSKScene(dicoDescr: String, ref: ARReferenceImage, node: SCNNode) {

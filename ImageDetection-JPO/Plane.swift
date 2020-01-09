@@ -39,7 +39,7 @@ class Plane: SCNNode{
             self.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
         }
         
-        initSections()
+        initSections(width: 5.0, height: 4.0)
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("Plane Node Coder Not Implemented") }
@@ -50,30 +50,35 @@ class Plane: SCNNode{
         material.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
         material.isDoubleSided = true
         iosSection.geometry?.firstMaterial = material
-        iosSection.position = SCNVector3(x: 0, y: 0, z: 0)
+        iosSection.position = SCNVector3(x: -2.5, y: 2.0, z: 0)
         iosSection.name = "iosSection"
         
         androidSection.geometry = SCNPlane(width: width, height: height)
         material.diffuse.contents = UIColor.green.withAlphaComponent(0.7)
         material.isDoubleSided = true
         androidSection.geometry?.firstMaterial = material
-        androidSection.position = SCNVector3(x: 1, y: 1, z: 0)
+        androidSection.position = SCNVector3(x: 2.5, y: 2.0, z: 0)
         androidSection.name = "androidSection"
         
         webSection.geometry = SCNPlane(width: width, height: height)
         material.diffuse.contents = UIColor.yellow.withAlphaComponent(0.7)
         material.isDoubleSided = true
         webSection.geometry?.firstMaterial = material
+        webSection.position = SCNVector3(x: 2.5, y: 6.0, z: 0)
+        webSection.name = "webSection"
+
         
         arSection.geometry = SCNPlane(width: width, height: height)
         material.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
         material.isDoubleSided = true
         arSection.geometry?.firstMaterial = material
+        arSection.position = SCNVector3(x: -2.5, y: 6.0, z: 0)
+        arSection.name = "arSection"
         
         self.addChildNode(iosSection)
         self.addChildNode(androidSection)
-        //self.addChildNode(webSection)
-        //self.addChildNode(arSection)
+        self.addChildNode(webSection)
+        self.addChildNode(arSection)
     }
     
 }
