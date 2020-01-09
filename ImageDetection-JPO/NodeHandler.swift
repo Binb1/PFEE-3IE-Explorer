@@ -83,6 +83,21 @@ class NodeHandler {
         sceneView.scene.rootNode.addChildNode(paperPlaneNode)
     }
     
+    func createAndReturnSCObjectWithVector(name: String, rootname: String, sceneView: ARSCNView, vect: SCNVector3) -> SCNNode? {
+        debugPrint("called")
+        guard let paperPlaneScene = SCNScene(named: name),
+            let paperPlaneNode = paperPlaneScene.rootNode.childNode(withName: rootname, recursively: true)
+            else {
+                debugPrint("oh nan")
+                return nil
+        }
+        
+        paperPlaneNode.position = vect
+        animateObject(object: paperPlaneNode, objectName: rootname)
+        sceneView.scene.rootNode.addChildNode(paperPlaneNode)
+        return paperPlaneNode
+    }
+    
     func createSCObjectWithVectorOnSurface(name: String, rootname: String, vect: SCNVector3, planeSurface: SCNNode) {
         debugPrint("create xwing")
         guard let paperPlaneScene = SCNScene(named: name),

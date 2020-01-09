@@ -13,14 +13,52 @@ import ARKit
 class ScenaryHandler {
     
     let nodeHandler = NodeHandler()
+    var iOSNodes: [SCNNode]
+    var androidNodes: [SCNNode]
     
     init () {
-        
+        iOSNodes = []
+        androidNodes = []
     }
     
     func addObjectsToiOSSection(planeSurface: SCNNode) {
         let vect = SCNVector3(1, 0, 0)
         nodeHandler.createSCObjectWithVectorOnSurface(name: "objects.scnassets/XWing.scn", rootname: "XWing", vect: vect, planeSurface: planeSurface)
+    }
+    
+    func runiOSScenary(sceneView: ARSCNView, iosCalled: Bool) {
+        if (!iosCalled) {
+            let vect = SCNVector3(1, 0, 0)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
+            if let node = node {
+                iOSNodes.append(node)
+            }
+        }
+    }
+    
+    func runAndroidScenary(sceneView: ARSCNView, androidCalled: Bool) {
+        if (!androidCalled) {
+            let vect = SCNVector3(1, 0, 0)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
+            if let node = node {
+                androidNodes.append(node)
+            }
+        }
+    }
+    
+    func cancelScenaris(iosCalled: Bool, androidCalled: Bool, sceneView: ARSCNView) {
+        if (iosCalled == false) {
+            print("delete ios")
+            for node in iOSNodes {
+                sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
+            }
+        }
+        if (androidCalled == false) {
+            print("delete android")
+            for node in androidNodes {
+                sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
+            }
+        }
     }
     
     func runScenary3IE(objectName: String, sceneView: ARSCNView, ref: ARReferenceImage, node: SCNNode) {
@@ -39,7 +77,6 @@ class ScenaryHandler {
             addSKScene(dicoDescr: objectName, ref: ref, node: node)
         }
     }
-    
     
     func addSKScene(dicoDescr: String, ref: ARReferenceImage, node: SCNNode) {
         //Creation of the SKScene, the SKLabelNode and the SCNPlane

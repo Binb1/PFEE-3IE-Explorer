@@ -31,6 +31,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var direction = float2(0, 0)
     
     var plane: SCNNode!
+    
+    var iosCalled = false
+    var androidCalled = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +50,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         addPlane(object: neatsie)
         
         if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
-            scenaryHandler.addObjectsToiOSSection(planeSurface: iosSection)
+            //scenaryHandler.addObjectsToiOSSection(planeSurface: iosSection)
         }
     }
     
@@ -106,18 +109,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             if let name = ref.name {
                 if let dicoDescr = self.imgDictionnary.dictionnary[name] {
                     if !self.scenaryHandler.nodeHandler.onScreenNodes.contains(dicoDescr) {
-                        self.scenaryHandler.runScenary3IE(objectName: dicoDescr, sceneView: self.gameView, ref: ref, node: node)
+                        //self.scenaryHandler.runScenary3IE(objectName: dicoDescr, sceneView: self.gameView, ref: ref, node: node)
                     }
                 }
             }
         }
     }
     
+  
+    
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         let directionInV3 = float3(x: direction.x, y: -direction.y, z: 0)
         neatsie?.walkInDirection(directionInV3)
         direction = float2(0, 0)
-        print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
+        //print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
         
         
         //Object plane presence detection
@@ -126,20 +131,27 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 neatsie.position.y >= 0.0 && neatsie.position.y <= 1.0 ) { // iOS Section
                     print("in iOS")
                     if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
+                        scenaryHandler.runiOSScenary(sceneView: self.gameView, iosCalled: self.iosCalled)
+                        iosCalled = true
+                        androidCalled = false
                         for i in 0...plane.childNodes.count - 1 {
                             //plane.childNodes[i].opacity = 0.0
                         }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, sceneView: self.gameView)
                         neatsie.opacity = 1.0
                         iosSection.opacity = 1.0
-                        
                     }
             } else if (neatsie.position.x >= 1.0 && neatsie.position.x <= 2.0 &&
                        neatsie.position.y >= 1.0 && neatsie.position.y <= 2.0) { //Android Section
                     print("in Android")
                     if let androidSection = plane.childNode(withName: "androidSection", recursively: true) {
+                        scenaryHandler.runAndroidScenary(sceneView: self.gameView, androidCalled: self.androidCalled)
+                        iosCalled = false
+                        androidCalled = true
                         for i in 0...plane.childNodes.count - 1 {
                             //plane.childNodes[i].opacity = 0.0
                         }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, sceneView: self.gameView)
                         androidSection.opacity = 1.0
                         neatsie.opacity = 1.0
                     }
