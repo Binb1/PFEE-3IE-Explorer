@@ -15,10 +15,14 @@ class ScenaryHandler {
     let nodeHandler = NodeHandler()
     var iOSNodes: [SCNNode]
     var androidNodes: [SCNNode]
+    var webNodes : [SCNNode]
+    var arNodes : [SCNNode]
     
     init () {
         iOSNodes = []
         androidNodes = []
+        webNodes = []
+        arNodes = []
     }
     
     func addObjectsToiOSSection(planeSurface: SCNNode) {
@@ -42,6 +46,8 @@ class ScenaryHandler {
         if (!androidCalled) {
             let vect = SCNVector3(1, 0, 0)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
+            let textNode = addLabelToSection(section: "Pole Android", node: sceneView.scene.rootNode)
+            androidNodes.append(textNode)
             if let node = node {
                 androidNodes.append(node)
             }
@@ -49,15 +55,23 @@ class ScenaryHandler {
     }
     
     func cancelScenaris(iosCalled: Bool, androidCalled: Bool, webCalled: Bool, arCalled: Bool, sceneView: ARSCNView) {
-        if (iosCalled == false) {
+        if (!iosCalled) {
             for node in iOSNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
+            return
         }
-        if (androidCalled == false) {
+        if (!androidCalled) {
             for node in androidNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
+            return
+        }
+        if (!webCalled) {
+            return
+        }
+        if (!arCalled) {
+            return
         }
     }
     
