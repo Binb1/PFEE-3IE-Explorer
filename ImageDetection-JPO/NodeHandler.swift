@@ -171,4 +171,30 @@ class NodeHandler {
         spriteNode.xScale *= -1
         return spriteNode
     }
+    
+    func createSCNodeImage(sceneView: ARSCNView, imageName: String, leftOrientation: Bool) -> SCNNode {
+        let selectedImage = UIImage.init(named: imageName)
+        let planeGeometry = SCNPlane(width: 2, height: 1)
+
+        planeGeometry.firstMaterial?.diffuse.contents = selectedImage
+
+        let planeNode = SCNNode()
+        planeNode.geometry = planeGeometry
+        
+        if (leftOrientation) {
+            planeNode.position = SCNVector3(-2, 0, -1.5)
+            planeNode.eulerAngles.y = .pi/4
+        } else {
+            planeNode.position = SCNVector3(2, 0, -1.5)
+            planeNode.eulerAngles.y = -.pi/4
+        }
+        
+        planeNode.light = SCNLight()
+        planeNode.light!.type = SCNLight.LightType.ambient
+        planeNode.light!.color = UIColor(white: 0.9, alpha: 1.0)
+        planeNode.name = imageName
+
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        return planeNode
+    }
 }

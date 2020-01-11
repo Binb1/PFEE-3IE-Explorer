@@ -36,6 +36,10 @@ class ScenaryHandler {
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
             let textNode = addLabelToSection(section: "Pole iOS", node: sceneView.scene.rootNode)
             iOSNodes.append(textNode)
+            
+            let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ios3IE", leftOrientation: true)
+            iOSNodes.append(studentImage)
+            
             if let node = node {
                 iOSNodes.append(node)
             }
@@ -48,30 +52,55 @@ class ScenaryHandler {
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
             let textNode = addLabelToSection(section: "Pole Android", node: sceneView.scene.rootNode)
             androidNodes.append(textNode)
+            
+            let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "android3IE", leftOrientation: false)
+            androidNodes.append(studentImage)
+            
             if let node = node {
                 androidNodes.append(node)
             }
         }
     }
     
+    func runWebScenary(sceneView: ARSCNView, webCalled: Bool) {
+        if (!webCalled) {
+            let textNode = addLabelToSection(section: "Web", node: sceneView.scene.rootNode)
+            webNodes.append(textNode)
+            let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "web3IE", leftOrientation: false)
+            webNodes.append(studentImage)
+        }
+    }
+    
+    func runARScenary(sceneView: ARSCNView, arCalled: Bool) {
+        if (!arCalled) {
+            let textNode = addLabelToSection(section: "AR/VR", node: sceneView.scene.rootNode)
+            arNodes.append(textNode)
+            let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: true)
+            arNodes.append(studentImage)
+        }
+    }
+
+    
     func cancelScenaris(iosCalled: Bool, androidCalled: Bool, webCalled: Bool, arCalled: Bool, sceneView: ARSCNView) {
         if (!iosCalled) {
             for node in iOSNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
-            return
         }
         if (!androidCalled) {
             for node in androidNodes {
                 sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
             }
-            return
         }
         if (!webCalled) {
-            return
+            for node in webNodes {
+                sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
+            }
         }
         if (!arCalled) {
-            return
+            for node in arNodes {
+                sceneView.scene.rootNode.childNode(withName: node.name!, recursively: true)?.removeFromParentNode()
+            }
         }
     }
     
@@ -106,7 +135,7 @@ class ScenaryHandler {
         planeNode.opacity = 1
         planeNode.eulerAngles.x = 0
         planeNode.name = section
-        //planeNode.position = SCNVector3(-2, 0, 2)
+        planeNode.position = SCNVector3(0, 0, -1.5)
         
         node.addChildNode(planeNode)
         return planeNode

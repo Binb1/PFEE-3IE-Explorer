@@ -177,7 +177,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             } else if (neatsie.position.x >= webPosition[0] && neatsie.position.x <= webPosition[2] &&
                        neatsie.position.y >= webPosition[1] && neatsie.position.y <= webPosition[3]) {
                 if let webSection = plane.childNode(withName: "webSection", recursively: true) {
-                    //scenaryHandler.runAndroidScenary(sceneView: self.gameView, androidCalled: self.androidCalled)
+                    scenaryHandler.runWebScenary(sceneView: self.gameView, webCalled: self.webCalled)
                     iosCalled = false
                     androidCalled = false
                     webCalled = true
@@ -192,7 +192,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             } else if (neatsie.position.x >= arPosition[0] && neatsie.position.x <= arPosition[2] &&
                        neatsie.position.y >= arPosition[1] && neatsie.position.y <= arPosition[3]) {
                 if let arSection = plane.childNode(withName: "arSection", recursively: true) {
-                    //scenaryHandler.runAndroidScenary(sceneView: self.gameView, androidCalled: self.androidCalled)
+                    scenaryHandler.runARScenary(sceneView: self.gameView, arCalled: self.arCalled)
                     iosCalled = false
                     androidCalled = false
                     webCalled = false
