@@ -31,6 +31,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var direction = float2(0, 0)
     
     var plane: SCNNode!
+    
+    var iosCalled = false
+    var androidCalled = false
+    var webCalled = false
+    var arCalled = false
+    
+    let iosPosition : [Float] = [-5, 0.0, 0.0, 4.0]
+    let androidPosition : [Float] = [0.001, 0.0, 5.0, 4.0]
+    let webPosition : [Float] = [0.001, 4.0, 5.0, 8.0]
+    let arPosition : [Float] = [-5.0, 4.0, 0.0, 8.0]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,15 +51,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         gameView.scene = SCNScene()
         gameView.session.delegate = self
         
-        plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
+        plane = Plane(content: UIColor.cyan.withAlphaComponent(0), doubleSided: true, horizontal: true)
 
         neatsie = Neatsie()
+        if let node = SCNScene.init(named: "objects.scnassets/ned.scn")?.rootNode {
+            neatsie?.animateNeatsie(node: node)
+            neatsie?.addChildNode(node)
+        }
+        
         addPlane(object: neatsie)
+        
+//        if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
+//            //scenaryHandler.addObjectsToiOSSection(planeSurface: iosSection)
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         configureTracking(ressourceFolder: Constants.ARReference.folderName)
     }
     
@@ -60,14 +79,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     @IBAction func resetCube(_ sender: Any) {
+        self.gameView.scene = SCNScene()
         neatsie?.removeFromParentNode()
+        
+         plane = Plane(content: UIColor.cyan.withAlphaComponent(0), doubleSided: true, horizontal: true)
+
         neatsie = Neatsie()
-        
-        plane = Plane(content: UIColor.cyan.withAlphaComponent(0.5), doubleSided: true, horizontal: true)
-        
-        if let neatsie = neatsie {
-            plane.addChildNode(neatsie)
+        if let node = SCNScene.init(named: "objects.scnassets/ned.scn")?.rootNode {
+            neatsie?.animateNeatsie(node: node)
+            neatsie?.addChildNode(node)
         }
+               
+        addPlane(object: neatsie)
     }
     
     func configureTracking(ressourceFolder: String) {
@@ -103,18 +126,96 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             if let name = ref.name {
                 if let dicoDescr = self.imgDictionnary.dictionnary[name] {
                     if !self.scenaryHandler.nodeHandler.onScreenNodes.contains(dicoDescr) {
-                        self.scenaryHandler.runScenary3IE(objectName: dicoDescr, sceneView: self.gameView, ref: ref, node: node)
+                        //self.scenaryHandler.runScenary3IE(objectName: dicoDescr, sceneView: self.gameView, ref: ref, node: node)
                     }
                 }
             }
         }
     }
     
+  
+    
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         let directionInV3 = float3(x: direction.x, y: -direction.y, z: 0)
         neatsie?.walkInDirection(directionInV3)
         direction = float2(0, 0)
         print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
+        
+        
+        //Object plane presence detection
+        if let neatsie = neatsie {
+            if (neatsie.position.x >= iosPosition[0] && neatsie.position.x <= iosPosition[2] &&
+                neatsie.position.y >= iosPosition[1] && neatsie.position.y <= iosPosition[3] ) { // iOS Section
+                    if let iosSection = plane.childNode(withName: "iosSection", recursively: true) {
+                        scenaryHandler.runiOSScenary(sceneView: self.gameView, iosCalled: self.iosCalled)
+                        iosCalled = true
+                        androidCalled = false
+                        webCalled = false
+                        arCalled = false
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                        neatsie.opacity = 1.0
+                        iosSection.opacity = 1.0
+                    }
+            } else if (neatsie.position.x >= androidPosition[0] && neatsie.position.x <= androidPosition[2] &&
+                       neatsie.position.y >= androidPosition[1] && neatsie.position.y <= androidPosition[3]) { //Android Section
+                    if let androidSection = plane.childNode(withName: "androidSection", recursively: true) {
+                        scenaryHandler.runAndroidScenary(sceneView: self.gameView, androidCalled: self.androidCalled)
+                        iosCalled = false
+                        androidCalled = true
+                        webCalled = false
+                        arCalled = false
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                        androidSection.opacity = 1.0
+                        neatsie.opacity = 1.0
+                    }
+            } else if (neatsie.position.x >= webPosition[0] && neatsie.position.x <= webPosition[2] &&
+                       neatsie.position.y >= webPosition[1] && neatsie.position.y <= webPosition[3]) {
+                if let webSection = plane.childNode(withName: "webSection", recursively: true) {
+                    scenaryHandler.runWebScenary(sceneView: self.gameView, webCalled: self.webCalled)
+                    iosCalled = false
+                    androidCalled = false
+                    webCalled = true
+                    arCalled = false
+                    for i in 0...plane.childNodes.count - 1 {
+                        plane.childNodes[i].opacity = 0.0
+                    }
+                    scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                    webSection.opacity = 1.0
+                    neatsie.opacity = 1.0
+                }
+            } else if (neatsie.position.x >= arPosition[0] && neatsie.position.x <= arPosition[2] &&
+                       neatsie.position.y >= arPosition[1] && neatsie.position.y <= arPosition[3]) {
+                if let arSection = plane.childNode(withName: "arSection", recursively: true) {
+                    scenaryHandler.runARScenary(sceneView: self.gameView, arCalled: self.arCalled)
+                    iosCalled = false
+                    androidCalled = false
+                    webCalled = false
+                    arCalled = true
+                    for i in 0...plane.childNodes.count - 1 {
+                        plane.childNodes[i].opacity = 0.0
+                    }
+                    scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                    arSection.opacity = 1.0
+                    neatsie.opacity = 1.0
+                }
+            } else {
+                for i in 0...plane.childNodes.count - 1 {
+                    plane.childNodes[i].opacity = 0.0
+                }
+                iosCalled = false
+                androidCalled = false
+                webCalled = false
+                arCalled = false
+                scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                neatsie.opacity = 1.0
+            }
+        }
     }
 }
 

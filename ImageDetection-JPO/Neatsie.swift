@@ -17,19 +17,7 @@ final class Neatsie: SCNNode {
     init(width: CGFloat = 0.2, height: CGFloat = 0.2) {
         super.init()
         
-        let playerGeometry = SCNBox(width: width, height: height, length: 0.2, chamferRadius: 0)
-        playerGeometry.firstMaterial?.diffuse.contents = UIColor.red.withAlphaComponent(0.9)
-
-        position = SCNVector3(x: 0, y: 0.5, z: 0)
-        geometry = playerGeometry
-
-        let shape = SCNPhysicsShape(
-            geometry: playerGeometry,
-            options: [SCNPhysicsShape.Option.type: SCNPhysicsShape.ShapeType.boundingBox]
-        )
-
-        physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
-        physicsBody?.angularVelocityFactor = SCNVector3Zero
+        name = "Neatsie"
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -53,5 +41,17 @@ final class Neatsie: SCNNode {
     func walkInDirection(_ direction: float3) {
         let currentPosition = float3(position)
         position = SCNVector3(currentPosition + direction * speed)
+    }
+    
+    func animateNeatsie(node: SCNNode) {
+        self.geometry = node.geometry
+
+        let goUp = SCNAction.move(by: SCNVector3(0, 0, 0.05), duration: 0.7)
+        let goDown = SCNAction.move(by: SCNVector3(0, 0, -0.05), duration: 0.7)
+        let hoverSequence = SCNAction.sequence([goUp, goDown])
+
+        let loopSequence = SCNAction.repeatForever(hoverSequence)
+
+        self.runAction(loopSequence)
     }
 }

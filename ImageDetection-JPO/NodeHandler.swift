@@ -78,12 +78,38 @@ class NodeHandler {
                 return
         }
         
-        //First droite gauche
-        //Second -> z vers le haut
-        //Third -> Profondeur
         paperPlaneNode.position = vect
         animateObject(object: paperPlaneNode, objectName: rootname)
         sceneView.scene.rootNode.addChildNode(paperPlaneNode)
+    }
+    
+    func createAndReturnSCObjectWithVector(name: String, rootname: String, sceneView: ARSCNView, vect: SCNVector3) -> SCNNode? {
+        debugPrint("called")
+        guard let paperPlaneScene = SCNScene(named: name),
+            let paperPlaneNode = paperPlaneScene.rootNode.childNode(withName: rootname, recursively: true)
+            else {
+                debugPrint("oh nan")
+                return nil
+        }
+        
+        paperPlaneNode.position = vect
+        animateObject(object: paperPlaneNode, objectName: rootname)
+        sceneView.scene.rootNode.addChildNode(paperPlaneNode)
+        return paperPlaneNode
+    }
+    
+    func createSCObjectWithVectorOnSurface(name: String, rootname: String, vect: SCNVector3, planeSurface: SCNNode) {
+        debugPrint("create xwing")
+        guard let paperPlaneScene = SCNScene(named: name),
+            let paperPlaneNode = paperPlaneScene.rootNode.childNode(withName: rootname, recursively: true)
+            else {
+                debugPrint("oh nan")
+                return
+        }
+        
+        paperPlaneNode.position = vect
+        animateObject(object: paperPlaneNode, objectName: rootname)
+        planeSurface.addChildNode(paperPlaneNode)
     }
     
     func createSceneWithLabel(text: String) -> SKScene {
@@ -144,5 +170,31 @@ class NodeHandler {
         spriteNode.zRotation = .pi
         spriteNode.xScale *= -1
         return spriteNode
+    }
+    
+    func createSCNodeImage(sceneView: ARSCNView, imageName: String, leftOrientation: Bool) -> SCNNode {
+        let selectedImage = UIImage.init(named: imageName)
+        let planeGeometry = SCNPlane(width: 2, height: 1)
+
+        planeGeometry.firstMaterial?.diffuse.contents = selectedImage
+
+        let planeNode = SCNNode()
+        planeNode.geometry = planeGeometry
+        
+        if (leftOrientation) {
+            planeNode.position = SCNVector3(-2, 0, -1.5)
+            planeNode.eulerAngles.y = .pi/4
+        } else {
+            planeNode.position = SCNVector3(2, 0, -1.5)
+            planeNode.eulerAngles.y = -.pi/4
+        }
+        
+        planeNode.light = SCNLight()
+        planeNode.light!.type = SCNLight.LightType.ambient
+        planeNode.light!.color = UIColor(white: 0.9, alpha: 1.0)
+        planeNode.name = imageName
+
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        return planeNode
     }
 }
