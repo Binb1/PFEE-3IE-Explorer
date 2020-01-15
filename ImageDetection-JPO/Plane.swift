@@ -15,6 +15,7 @@ class Plane: SCNNode{
     let androidSection: SCNNode = SCNNode()
     let webSection: SCNNode = SCNNode()
     let arSection: SCNNode = SCNNode()
+    let designSection : SCNNode = SCNNode()
     
     init(width: CGFloat = 4, height: CGFloat = 4, content: Any, doubleSided: Bool, horizontal: Bool) {
         super.init()
@@ -67,7 +68,6 @@ class Plane: SCNNode{
         webSection.position = SCNVector3(x: 2.5, y: 6.0, z: 0)
         webSection.name = "webSection"
 
-        
         arSection.geometry = SCNPlane(width: width, height: height)
         material.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
         material.isDoubleSided = true
@@ -75,10 +75,18 @@ class Plane: SCNNode{
         arSection.position = SCNVector3(x: -2.5, y: 6.0, z: 0)
         arSection.name = "arSection"
         
+        designSection.geometry = SCNPlane(width: width, height: height)
+        material.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
+        material.isDoubleSided = true
+        designSection.geometry?.firstMaterial = material
+        designSection.position = SCNVector3(x: 2.5, y: 10.0, z: 0)
+        designSection.name = "designSection"
+        
         self.addChildNode(iosSection)
         self.addChildNode(androidSection)
         self.addChildNode(webSection)
         self.addChildNode(arSection)
+        self.addChildNode(designSection)
     }
     
 }

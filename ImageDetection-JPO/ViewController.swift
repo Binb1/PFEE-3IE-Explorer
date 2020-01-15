@@ -36,11 +36,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var androidCalled = false
     var webCalled = false
     var arCalled = false
+    var designCalled = false
     
     let iosPosition : [Float] = [-5, 0.0, 0.0, 4.0]
     let androidPosition : [Float] = [0.001, 0.0, 5.0, 4.0]
     let webPosition : [Float] = [0.001, 4.0, 5.0, 8.0]
-    let arPosition : [Float] = [-5.0, 4.0, 0.0, 8.0]
+    let arPosition : [Float] = [-5.0, 4.0, 0.0, 12.0]
+    let designPosition : [Float] = [0.001, 8.0, 5.0, 12.0]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,7 +141,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let directionInV3 = float3(x: direction.x, y: -direction.y, z: 0)
         neatsie?.walkInDirection(directionInV3)
         direction = float2(0, 0)
-        print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
+        //print("x: \(neatsie!.position.x) y: \(neatsie!.position.y) z: \(neatsie!.position.z)")
         
         
         //Object plane presence detection
@@ -152,10 +154,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         androidCalled = false
                         webCalled = false
                         arCalled = false
+                        designCalled = false
                         for i in 0...plane.childNodes.count - 1 {
                             plane.childNodes[i].opacity = 0.0
                         }
-                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
                         neatsie.opacity = 1.0
                         iosSection.opacity = 1.0
                     }
@@ -167,43 +170,62 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         androidCalled = true
                         webCalled = false
                         arCalled = false
+                        designCalled = false
                         for i in 0...plane.childNodes.count - 1 {
                             plane.childNodes[i].opacity = 0.0
                         }
-                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
                         androidSection.opacity = 1.0
                         neatsie.opacity = 1.0
                     }
             } else if (neatsie.position.x >= webPosition[0] && neatsie.position.x <= webPosition[2] &&
                        neatsie.position.y >= webPosition[1] && neatsie.position.y <= webPosition[3]) {
-                if let webSection = plane.childNode(withName: "webSection", recursively: true) {
-                    scenaryHandler.runWebScenary(sceneView: self.gameView, webCalled: self.webCalled)
-                    iosCalled = false
-                    androidCalled = false
-                    webCalled = true
-                    arCalled = false
-                    for i in 0...plane.childNodes.count - 1 {
-                        plane.childNodes[i].opacity = 0.0
+                    if let webSection = plane.childNode(withName: "webSection", recursively: true) {
+                        scenaryHandler.runWebScenary(sceneView: self.gameView, webCalled: self.webCalled)
+                        iosCalled = false
+                        androidCalled = false
+                        webCalled = true
+                        arCalled = false
+                        designCalled = false
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
+                        webSection.opacity = 1.0
+                        neatsie.opacity = 1.0
                     }
-                    scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
-                    webSection.opacity = 1.0
-                    neatsie.opacity = 1.0
-                }
             } else if (neatsie.position.x >= arPosition[0] && neatsie.position.x <= arPosition[2] &&
                        neatsie.position.y >= arPosition[1] && neatsie.position.y <= arPosition[3]) {
-                if let arSection = plane.childNode(withName: "arSection", recursively: true) {
-                    scenaryHandler.runARScenary(sceneView: self.gameView, arCalled: self.arCalled)
-                    iosCalled = false
-                    androidCalled = false
-                    webCalled = false
-                    arCalled = true
-                    for i in 0...plane.childNodes.count - 1 {
-                        plane.childNodes[i].opacity = 0.0
+                    if let arSection = plane.childNode(withName: "arSection", recursively: true) {
+                        scenaryHandler.runARScenary(sceneView: self.gameView, arCalled: self.arCalled)
+                        iosCalled = false
+                        androidCalled = false
+                        webCalled = false
+                        arCalled = true
+                        designCalled = false
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
+                        arSection.opacity = 1.0
+                        neatsie.opacity = 1.0
                     }
-                    scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
-                    arSection.opacity = 1.0
-                    neatsie.opacity = 1.0
-                }
+            } else if (neatsie.position.x >= designPosition[0] && neatsie.position.x <= designPosition[2] &&
+                       neatsie.position.y >= designPosition[1] && neatsie.position.y <= designPosition[3]) {
+                    if let designSection = plane.childNode(withName: "designSection", recursively: true) {
+                        scenaryHandler.runDesignScenary(sceneView: self.gameView, designCalled: self.designCalled)
+                        iosCalled = false
+                        androidCalled = false
+                        webCalled = false
+                        arCalled = false
+                        designCalled = true
+                        for i in 0...plane.childNodes.count - 1 {
+                            plane.childNodes[i].opacity = 0.0
+                        }
+                        scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
+                        designSection.opacity = 1.0
+                        neatsie.opacity = 1.0
+                    }
             } else {
                 for i in 0...plane.childNodes.count - 1 {
                     plane.childNodes[i].opacity = 0.0
@@ -212,7 +234,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 androidCalled = false
                 webCalled = false
                 arCalled = false
-                scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, sceneView: self.gameView)
+                designCalled = false
+                scenaryHandler.cancelScenaris(iosCalled: self.iosCalled, androidCalled: self.androidCalled, webCalled: self.webCalled, arCalled: self.arCalled, designCalled: self.designCalled, sceneView: self.gameView)
                 neatsie.opacity = 1.0
             }
         }

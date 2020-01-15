@@ -66,6 +66,20 @@ class NodeHandler {
             let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
             let loopSequence = SCNAction.repeatForever(hoverSequence)
             object.runAction(loopSequence)
+        } else if objectName == "Andy" {
+            let moveDown = SCNAction.move(by: SCNVector3(0, -0.2, 0), duration: 1)
+            let moveUp = SCNAction.move(by: SCNVector3(0,0.1,0), duration: 1)
+            let waitAction = SCNAction.wait(duration: 0.30)
+            let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
+            let loopSequence = SCNAction.repeatForever(hoverSequence)
+            object.runAction(loopSequence)
+        } else if objectName == "mobile-phone" {
+            let moveDown = SCNAction.move(by: SCNVector3(0, -0.2, 0), duration: 1)
+            let moveUp = SCNAction.move(by: SCNVector3(0,0.1,0), duration: 1)
+            let waitAction = SCNAction.wait(duration: 0.30)
+            let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
+            let loopSequence = SCNAction.repeatForever(hoverSequence)
+            object.runAction(loopSequence)
         }
     }
     
@@ -189,6 +203,26 @@ class NodeHandler {
             planeNode.eulerAngles.y = -.pi/4
         }
         
+        planeNode.light = SCNLight()
+        planeNode.light!.type = SCNLight.LightType.ambient
+        planeNode.light!.color = UIColor(white: 0.9, alpha: 1.0)
+        planeNode.name = imageName
+
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        return planeNode
+    }
+    
+    func createSCNodeImage(sceneView: ARSCNView, imageName: String, position: SCNVector3, width: CGFloat, height: CGFloat) -> SCNNode {
+        let selectedImage = UIImage.init(named: imageName)
+        let planeGeometry = SCNPlane(width: width, height: height)
+
+        planeGeometry.firstMaterial?.diffuse.contents = selectedImage
+
+        let planeNode = SCNNode()
+        planeNode.geometry = planeGeometry
+        
+        planeNode.position = position
+
         planeNode.light = SCNLight()
         planeNode.light!.type = SCNLight.LightType.ambient
         planeNode.light!.color = UIColor(white: 0.9, alpha: 1.0)
