@@ -34,8 +34,8 @@ class ScenaryHandler {
     
     func runiOSScenary(sceneView: ARSCNView, iosCalled: Bool) {
         if (!iosCalled) {
-            let vect = SCNVector3(-3, 1, 2.5)
-            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
+             let vect = SCNVector3(-5, 1, 2.5)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "iosText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             iOSNodes.append(textImage)
             
