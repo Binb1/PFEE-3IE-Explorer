@@ -74,7 +74,7 @@ class ScenaryHandler {
     
     func runWebScenary(sceneView: ARSCNView, webCalled: Bool) {
         if (!webCalled) {
-            let vect = SCNVector3(1, 0, 1)
+            let vect = SCNVector3(1, -0.5, -2)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/Coliseum.scn", rootname: "Coliseum", sceneView: sceneView, vect: vect)
             if let node = node {
                 webNodes.append(node)
@@ -94,7 +94,7 @@ class ScenaryHandler {
     func runARScenary(sceneView: ARSCNView, arCalled: Bool) {
         if (!arCalled) {
             
-            let vect = SCNVector3(-5, 0.5, -2)
+            let vect = SCNVector3(-5, 1, 2.5)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
             if let node = node {
                 arNodes.append(node)
