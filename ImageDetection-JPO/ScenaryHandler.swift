@@ -34,10 +34,13 @@ class ScenaryHandler {
     
     func runiOSScenary(sceneView: ARSCNView, iosCalled: Bool) {
         if (!iosCalled) {
-             let vect = SCNVector3(-2, 0.5, -6)
+            let vect = SCNVector3(-2, 0.5, -6)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/mobile-phone.scn", rootname: "mobile-phone", sceneView: sceneView, vect: vect)
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "iosText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             iOSNodes.append(textImage)
+            
+            let textNode = addLabelToSection(section: "Projets: 27", node: sceneView.scene.rootNode, position: SCNVector3(-2, 1.5, -1.5))
+            iOSNodes.append(textNode)
             
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ios3IE", leftOrientation: true)
             iOSNodes.append(studentImage)
@@ -57,13 +60,14 @@ class ScenaryHandler {
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "androidText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             androidNodes.append(textImage)
             
+            let textNode = addLabelToSection(section: "Projets: 24", node: sceneView.scene.rootNode, position: SCNVector3(2, 1.5, -1.5))
+            androidNodes.append(textNode)
+            
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "android3IE", leftOrientation: false)
             androidNodes.append(studentImage)
             
             if let node = node {
                 androidNodes.append(node)
-            } else {
-                print("bruh")
             }
         }
     }
@@ -73,11 +77,14 @@ class ScenaryHandler {
             let vect = SCNVector3(1, 0, 1)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/Coliseum.scn", rootname: "Coliseum", sceneView: sceneView, vect: vect)
             if let node = node {
-                androidNodes.append(node)
+                webNodes.append(node)
             }
             
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "webText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             webNodes.append(textImage)
+            
+            let textNode = addLabelToSection(section: "Projets: 35", node: sceneView.scene.rootNode, position: SCNVector3(2, 1.5, -1.5))
+            webNodes.append(textNode)
             
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "web3IE", leftOrientation: false)
             webNodes.append(studentImage)
@@ -86,8 +93,19 @@ class ScenaryHandler {
     
     func runARScenary(sceneView: ARSCNView, arCalled: Bool) {
         if (!arCalled) {
+            
+            let vect = SCNVector3(-5, 0.5, -2)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
+            if let node = node {
+                arNodes.append(node)
+            }
+            
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "arText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             arNodes.append(textImage)
+            
+            let textNode = addLabelToSection(section: "Projets: 12", node: sceneView.scene.rootNode, position: SCNVector3(-2, 1.5, -1.5))
+            arNodes.append(textNode)
+            
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: true)
             arNodes.append(studentImage)
         }
@@ -97,6 +115,10 @@ class ScenaryHandler {
         if (!designCalled) {
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "desginText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             designNodes.append(textImage)
+            
+            let textNode = addLabelToSection(section: "Créations: 70", node: sceneView.scene.rootNode, position: SCNVector3(2, 1.5, -1.5))
+            designNodes.append(textNode)
+            
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: true)
             designNodes.append(studentImage)
         }
@@ -148,7 +170,7 @@ class ScenaryHandler {
         }
     }
     
-    func addLabelToSection(section: String, node: SCNNode) -> SCNNode {
+    func addLabelToSection(section: String, node: SCNNode, position: SCNVector3) -> SCNNode {
         let skScene = self.nodeHandler.createSceneWithLabel(text: section)
         //Create a plane on top of the detected image
         let plane = SCNPlane(width: 2,
@@ -160,9 +182,15 @@ class ScenaryHandler {
         plane.materials = [material]
         let planeNode = SCNNode(geometry: plane)
         planeNode.opacity = 1
-        planeNode.eulerAngles.x = 0
+        
+        if position.x < 0 {
+            planeNode.eulerAngles.y = .pi/4
+        } else {
+            planeNode.eulerAngles.y = -.pi/4
+        }
+        
         planeNode.name = section
-        planeNode.position = SCNVector3(0, 0, -1.5)
+        planeNode.position = position
         
         node.addChildNode(planeNode)
         return planeNode

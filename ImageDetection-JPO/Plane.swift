@@ -48,35 +48,35 @@ class Plane: SCNNode{
     func initSections(width: CGFloat = 1, height: CGFloat = 1){
         iosSection.geometry = SCNPlane(width: width, height: height)
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.blue.withAlphaComponent(0.7)
+        material.diffuse.contents = UIColor.cyan.withAlphaComponent(0.4)
         material.isDoubleSided = true
         iosSection.geometry?.firstMaterial = material
         iosSection.position = SCNVector3(x: -2.5, y: 2.0, z: 0)
         iosSection.name = "iosSection"
         
         androidSection.geometry = SCNPlane(width: width, height: height)
-        material.diffuse.contents = UIColor.green.withAlphaComponent(0.7)
+        material.diffuse.contents = UIColor.cyan.withAlphaComponent(0.4)
         material.isDoubleSided = true
         androidSection.geometry?.firstMaterial = material
         androidSection.position = SCNVector3(x: 2.5, y: 2.0, z: 0)
         androidSection.name = "androidSection"
         
         webSection.geometry = SCNPlane(width: width, height: height)
-        material.diffuse.contents = UIColor.yellow.withAlphaComponent(0.7)
+        material.diffuse.contents = UIColor.cyan.withAlphaComponent(0.4)
         material.isDoubleSided = true
         webSection.geometry?.firstMaterial = material
         webSection.position = SCNVector3(x: 2.5, y: 6.0, z: 0)
         webSection.name = "webSection"
 
         arSection.geometry = SCNPlane(width: width, height: height)
-        material.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
+        material.diffuse.contents = UIColor.cyan.withAlphaComponent(0.4)
         material.isDoubleSided = true
         arSection.geometry?.firstMaterial = material
         arSection.position = SCNVector3(x: -2.5, y: 6.0, z: 0)
         arSection.name = "arSection"
         
         designSection.geometry = SCNPlane(width: width, height: height)
-        material.diffuse.contents = UIColor.red.withAlphaComponent(0.7)
+        material.diffuse.contents = UIColor.cyan.withAlphaComponent(0.4)
         material.isDoubleSided = true
         designSection.geometry?.firstMaterial = material
         designSection.position = SCNVector3(x: 2.5, y: 10.0, z: 0)

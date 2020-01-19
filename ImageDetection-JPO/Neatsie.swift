@@ -12,7 +12,7 @@ import SceneKit
 final class Neatsie: SCNNode {
 
     var scene : SCNScene?
-    let speed: Float = 0.02
+    let speed: Float = 0.03
     
     init(width: CGFloat = 0.2, height: CGFloat = 0.2) {
         super.init()
