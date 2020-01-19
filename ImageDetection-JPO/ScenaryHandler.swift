@@ -53,8 +53,9 @@ class ScenaryHandler {
             print("android section")
             let vect = SCNVector3(1, 0, 0)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/FloatingIsland.scn", rootname: "FloatingIsland", sceneView: sceneView, vect: vect)
-            let textNode = addLabelToSection(section: "Pole Android", node: sceneView.scene.rootNode)
-            androidNodes.append(textNode)
+            
+            let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "androidText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
+            androidNodes.append(textImage)
             
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "android3IE", leftOrientation: false)
             androidNodes.append(studentImage)
