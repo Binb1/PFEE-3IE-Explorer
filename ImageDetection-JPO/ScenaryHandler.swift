@@ -45,6 +45,9 @@ class ScenaryHandler {
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ios3IE", leftOrientation: true)
             iOSNodes.append(studentImage)
             
+            let bossImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "iosBoss", leftOrientation: true, position: SCNVector3(-2.5, 1, -4.5))
+            iOSNodes.append(bossImage)
+            
             if let node = node {
                 iOSNodes.append(node)
             }
@@ -66,6 +69,9 @@ class ScenaryHandler {
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "android3IE", leftOrientation: false)
             androidNodes.append(studentImage)
             
+            let bossImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "androidBoss", leftOrientation: false, position: SCNVector3(2.5, 1, -4.5))
+            androidNodes.append(bossImage)
+            
             if let node = node {
                 androidNodes.append(node)
             }
@@ -75,7 +81,7 @@ class ScenaryHandler {
     func runWebScenary(sceneView: ARSCNView, webCalled: Bool) {
         if (!webCalled) {
             let vect = SCNVector3(1, -0.5, -2)
-            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/Coliseum.scn", rootname: "Coliseum", sceneView: sceneView, vect: vect)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/pikachu.scn", rootname: "pikachu", sceneView: sceneView, vect: vect)
             if let node = node {
                 webNodes.append(node)
             }
@@ -88,13 +94,16 @@ class ScenaryHandler {
             
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "web3IE", leftOrientation: false)
             webNodes.append(studentImage)
+            
+            let bossImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "webBoss", leftOrientation: false, position: SCNVector3(2.5, 1, -4.5))
+            webNodes.append(bossImage)
         }
     }
     
     func runARScenary(sceneView: ARSCNView, arCalled: Bool) {
         if (!arCalled) {
             
-            let vect = SCNVector3(-5, 1, 2.5)
+            let vect = SCNVector3(-5, 1, 3.5)
             let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/XWing.scn", rootname: "XWing", sceneView: sceneView, vect: vect)
             if let node = node {
                 arNodes.append(node)
@@ -108,19 +117,34 @@ class ScenaryHandler {
             
             let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: true)
             arNodes.append(studentImage)
+            
+            let bossImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "arBoss", leftOrientation: true, position: SCNVector3(-2.5, 1, -4.5))
+            arNodes.append(bossImage)
         }
     }
     
     func runDesignScenary(sceneView: ARSCNView, designCalled: Bool) {
         if (!designCalled) {
+            
+            let vect = SCNVector3(1, -0.5, -4)
+            let node = nodeHandler.createAndReturnSCObjectWithVector(name: "objects.scnassets/earth.scn", rootname: "earth", sceneView: sceneView, vect: vect)
+            
+            if let node = node {
+                designNodes.append(node)
+            }
+            
             let textImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "desginText", position: SCNVector3(0, 1, -3), width: 1.5, height: 1)
             designNodes.append(textImage)
             
-            let textNode = addLabelToSection(section: "Créations: 70", node: sceneView.scene.rootNode, position: SCNVector3(2, 1.5, -1.5))
+            let textNode = addLabelToSection(section: "70 Créations", node: sceneView.scene.rootNode, position: SCNVector3(2, 1.5, -1.5))
             designNodes.append(textNode)
             
-            let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: true)
-            designNodes.append(studentImage)
+            //let studentImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "ar3IE", leftOrientation: false)
+            //designNodes.append(studentImage)
+            
+            let bossImage = nodeHandler.createSCNodeImage(sceneView: sceneView, imageName: "designBoss", leftOrientation: false, position: SCNVector3(2.5, 1, -4.5))
+            
+            designNodes.append(bossImage)
         }
     }
 

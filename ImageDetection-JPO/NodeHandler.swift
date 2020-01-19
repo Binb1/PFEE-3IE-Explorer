@@ -80,6 +80,15 @@ class NodeHandler {
             let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
             let loopSequence = SCNAction.repeatForever(hoverSequence)
             object.runAction(loopSequence)
+        } else if objectName == "earth" {
+            let moveDown = SCNAction.move(by: SCNVector3(0, -0.2, 0), duration: 1)
+            let moveUp = SCNAction.move(by: SCNVector3(0,0.1,0), duration: 1)
+            let waitAction = SCNAction.wait(duration: 0.30)
+            let spinLooping = SCNAction.rotate(by: 2 * .pi, around: SCNVector3(0, 0.1, 0), duration: 2.3)
+            let hoverSequence = SCNAction.sequence([moveUp,waitAction,moveDown])
+            
+            let loopSequence = SCNAction.repeatForever(SCNAction.group([hoverSequence, spinLooping]))
+            object.runAction(loopSequence)
         }
     }
     
@@ -211,6 +220,33 @@ class NodeHandler {
         sceneView.scene.rootNode.addChildNode(planeNode)
         return planeNode
     }
+    
+    func createSCNodeImage(sceneView: ARSCNView, imageName: String, leftOrientation: Bool, position: SCNVector3) -> SCNNode {
+        let selectedImage = UIImage.init(named: imageName)
+        let planeGeometry = SCNPlane(width: 1, height: 1.2)
+
+        planeGeometry.firstMaterial?.diffuse.contents = selectedImage
+
+        let planeNode = SCNNode()
+        planeNode.geometry = planeGeometry
+        
+        if (leftOrientation) {
+            planeNode.position = position
+            planeNode.eulerAngles.y = .pi/4
+        } else {
+            planeNode.position = position
+            planeNode.eulerAngles.y = -.pi/4
+        }
+        
+        planeNode.light = SCNLight()
+        planeNode.light!.type = SCNLight.LightType.ambient
+        planeNode.light!.color = UIColor(white: 0.9, alpha: 1.0)
+        planeNode.name = imageName
+
+        sceneView.scene.rootNode.addChildNode(planeNode)
+        return planeNode
+    }
+    
     
     func createSCNodeImage(sceneView: ARSCNView, imageName: String, position: SCNVector3, width: CGFloat, height: CGFloat) -> SCNNode {
         let selectedImage = UIImage.init(named: imageName)
